@@ -16,6 +16,8 @@ public class FieldOfView : MonoBehaviour {
 	public int edgeResolveIteration = 6;
 	public float edgeDstThreshold = 0.5f;
 
+	public float maskCutawayDst = .15f;
+
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
 
@@ -97,7 +99,7 @@ public class FieldOfView : MonoBehaviour {
 
 		vertices[0] = Vector3.zero; //Position of the player in local coordinates
 		for (int i = 0; i < vertexCount-1; i++) {
-			vertices[i+1] = transform.InverseTransformPoint(viewPoints[i]);
+			vertices[i+1] = transform.InverseTransformPoint(viewPoints[i]) + Vector3.forward*maskCutawayDst;
 			if (i<vertexCount-2)
 			{
 				triangles[i*3] = 0;
